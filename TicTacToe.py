@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 import math
 import copy
+import random
 
 X = "X"
 O = "O"
@@ -134,7 +135,7 @@ def minimax(board):
         best_value = -math.inf
         for action in actions(board):
             board_copy = board[:]
-            k = MAX_value(result(board_copy, action))
+            k = MIN_value(result(board_copy, action))
             if k > best_value:
                 best_value = k
                 best_move = action
@@ -143,7 +144,7 @@ def minimax(board):
         best_value = math.inf
         for action in actions(board):
             board_copy = board[:]
-            k = MIN_value(result(board_copy, action))
+            k = MAX_value(result(board_copy, action))
             if k < best_value:
                 best_value = k
                 best_move = action
@@ -153,8 +154,8 @@ def minimax(board):
 def MIN_value(state):
     if terminal(state):
         return utility(state)
-    if sum(row.count(EMPTY) for row in state) == 8: # if the computer has the first go, prevents checking every state
-        return 0
+    if sum(row.count(EMPTY) for row in state) == 8:     # if the computer has the first go, prevents checking every state
+        return random.randint(0, 18)
     value = math.inf
     for action in actions(state):
         # copy = state[:]
@@ -166,7 +167,7 @@ def MAX_value(state):
     if terminal(state):
         return utility(state)
     if sum(row.count(EMPTY) for row in state) == 8:  # if the computer has the first go, prevents checking every state
-        return 0
+        return random.randint(0, 18)
     value = - math.inf
     for action in actions(state):
         # copy = state[:]
